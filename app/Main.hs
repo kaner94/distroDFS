@@ -1,6 +1,8 @@
 module Main where
 
 import Lib
+import ServantTest
 
 main :: IO ()
-main = startApp
+main = do
+  putStrLn "hello world"
