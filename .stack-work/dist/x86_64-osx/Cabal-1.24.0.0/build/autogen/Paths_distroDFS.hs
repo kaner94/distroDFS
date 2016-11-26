@@ -29,11 +29,11 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/Users/ryan/Documents/College/Distro/dfs/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/bin"
-libdir     = "/Users/ryan/Documents/College/Distro/dfs/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/lib/x86_64-osx-ghc-8.0.1/distroDFS-0.1.0.0-8epBta18ntc3S0QcEuAx9X"
-datadir    = "/Users/ryan/Documents/College/Distro/dfs/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/share/x86_64-osx-ghc-8.0.1/distroDFS-0.1.0.0"
-libexecdir = "/Users/ryan/Documents/College/Distro/dfs/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/libexec"
-sysconfdir = "/Users/ryan/Documents/College/Distro/dfs/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/etc"
+bindir     = "/Users/ryan/Documents/College/Distro/dfs/DFS/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/bin"
+libdir     = "/Users/ryan/Documents/College/Distro/dfs/DFS/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/lib/x86_64-osx-ghc-8.0.1/distroDFS-0.1.0.0-8epBta18ntc3S0QcEuAx9X"
+datadir    = "/Users/ryan/Documents/College/Distro/dfs/DFS/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/share/x86_64-osx-ghc-8.0.1/distroDFS-0.1.0.0"
+libexecdir = "/Users/ryan/Documents/College/Distro/dfs/DFS/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/libexec"
+sysconfdir = "/Users/ryan/Documents/College/Distro/dfs/DFS/distroDFS/.stack-work/install/x86_64-osx/lts-7.10/8.0.1/etc"
 
 getBinDir, getLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "distroDFS_bindir") (\_ -> return bindir)
