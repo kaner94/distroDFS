@@ -8,14 +8,13 @@ module Main where
 
 
 import Lib
-import Database.MongoDB
+
 
 main :: IO ()
-main = do
-  putStrLn "hello world"
+main = startApp
 
 
-runMongo authDB functionToRun = do
-	pipe <- runIOE $ connect(host "127.0.0.1")
-	e <- access pipe master (pack authDB) functionToRun
-	close pipe
+-- runMongo authDB functionToRun = do
+-- 	pipe <- runIOE $ connect(host "127.0.0.1")
+-- 	e <- access pipe master (pack authDB) functionToRun
+-- 	close pipe

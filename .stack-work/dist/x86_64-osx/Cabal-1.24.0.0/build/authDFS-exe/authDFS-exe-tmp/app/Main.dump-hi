@@ -1,9 +1,9 @@
 
 ==================== FINAL INTERFACE ====================
-2016-11-25 09:48:57.495334 UTC
+2016-11-28 20:14:07.37789 UTC
 
 interface main@main:Main 8001
-  interface hash: c6466bde45aa375f985c45707f143161
+  interface hash: 9310f07d9180a5d538fc3180a7a64360
   ABI hash: fb1fad67188619f55d9fa13fa6448678
   export-list hash: 55253db7801d1b3f640bf97c9ccc131d
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
@@ -115,6 +115,7 @@ family instance modules: attoparsec-0.13.1.0@attoparsec-0.13.1.0-5Olk1S76r1CDYzF
                          containers-0.5.7.1@containers-0.5.7.1:Data.Map.Base
                          containers-0.5.7.1@containers-0.5.7.1:Data.Sequence
                          containers-0.5.7.1@containers-0.5.7.1:Data.Set.Base
+                         distroDFS-0.1.0.0@distroDFS-0.1.0.0-8epBta18ntc3S0QcEuAx9X:Lib
                          dlist-0.8.0.2@dlist-0.8.0.2-GWAMmbX9rLg3tqrbOizHGv:Data.DList
                          ghc-boot-th-8.0.1@ghc-boot-th-8.0.1:GHC.LanguageExtensions.Type
                          iproute-1.7.1@iproute-1.7.1-9hsGfRvggCmFA0ueZi5Sd9:Data.IP.Addr
@@ -142,7 +143,7 @@ family instance modules: attoparsec-0.13.1.0@attoparsec-0.13.1.0-5Olk1S76r1CDYzF
                          zlib-0.6.1.2@zlib-0.6.1.2-4CWLN1T27kOJhNvXgy46ZV:Codec.Compression.Zlib.Stream
 import  -/  base-4.9.0.0:Prelude b9bddb97799837fe67a8d00939a5b6c3
 import  -/  base-4.9.0.0:System.IO ad985d7a3fc986e9b9c610fb344d9106
-import  -/  distroDFS-0.1.0.0@distroDFS-0.1.0.0-8epBta18ntc3S0QcEuAx9X:Lib 8f6c240c40b869e17a9cd325d8b8c445
+import  -/  distroDFS-0.1.0.0@distroDFS-0.1.0.0-8epBta18ntc3S0QcEuAx9X:Lib c6481195ca10ef5ee94b70ee014f507d
 import  -/  ghc-prim-0.5.0.0:GHC.Types 7378e41b7749213c8c88ceb6b0665d4c
 d6831ef04cb9301b090dfae6f7bb7ec7
   $trModule :: GHC.Types.Module
