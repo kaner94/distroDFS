@@ -1,9 +1,9 @@
 
 ==================== FINAL INTERFACE ====================
-2016-11-28 20:13:40.641626 UTC
+2016-11-28 21:52:17.963863 UTC
 
 interface distroDFS-0.1.0.0-8epBta18ntc3S0QcEuAx9X:Lib [family instance module] 8001
-  interface hash: eebcffe81f95df0b83a50e978a05a2cf
+  interface hash: 2854028334a7b0851f0ee32fdc73cc0d
   ABI hash: c6481195ca10ef5ee94b70ee014f507d
   export-list hash: 5b7b78805492b1c3059f7a0e3998c94a
   orphan hash: 8f6f1ec5de730e74812153f17613ceb6
@@ -147,8 +147,13 @@ import  -/  base-4.9.0.0:Data.List 49b86831b79b49ce5d4d9416ecba61df
 import  -/  base-4.9.0.0:Data.Proxy aa86c72628cf3b1ceb0816ca84687d80
 import  -/  base-4.9.0.0:GHC.Base 8ed3be81c0707b322f975a84ae1bb816
 import  -/  base-4.9.0.0:GHC.Generics 8e2a7658e8b966c1d29d0d5fd4129f38
+import  -/  base-4.9.0.0:GHC.IO.Handle a1938753d58593f0a419f85b67aa7cd3
+import  -/  base-4.9.0.0:GHC.IO.Handle.FD 13b7a4e1f414dd38346bde554423bf4b
+import  -/  base-4.9.0.0:GHC.IO.Handle.Text 23b6dc4ed000f42bf105ce56bdeb0dc6
+import  -/  base-4.9.0.0:GHC.IO.IOMode 9380a6a6b8c50facc225c4877c5e1e90
 import  -/  base-4.9.0.0:GHC.Unicode 2343b0871604cc5116abba8f24d75b42
 import  -/  base-4.9.0.0:Prelude b9bddb97799837fe67a8d00939a5b6c3
+import  -/  base-4.9.0.0:System.IO ad985d7a3fc986e9b9c610fb344d9106
 import  -/  ghc-prim-0.5.0.0:GHC.Types 7378e41b7749213c8c88ceb6b0665d4c
 import  -/  servant-0.8.1@servant-0.8.1-C41nqWozRFwEkLnlLTnUQc:Servant.API.Capture dd1eb741cb5c67f576e0df2ff0021b64
 import  -/  servant-0.8.1@servant-0.8.1-C41nqWozRFwEkLnlLTnUQc:Servant.API.ContentTypes f9865913885b0f6b2e2ff28b92e0f0b7
