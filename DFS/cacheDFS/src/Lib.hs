@@ -45,6 +45,8 @@ instance ToJSON Message
 
 
 type API = "users" :> Get '[JSON] [User]
+		:<|> "ryan" :> Get '[JSON] User
+		:<|> "neill" :> Get '[JSON] User
 		 
 
 usersCollection :: [User]
@@ -52,6 +54,16 @@ usersCollection =
 	[ User "Ryan Kane" 21 "ryan@kane.ie"
 	, User "Neill Diamond" 68 "neill@diamond.hi"
 	]
+
+ryan :: User
+ryan = User "Ryan Kane" 21 "ryan@kane.ie"
+
+neill :: User
+neill = User "Neill Diamond" 68 "neill@diamond.ie"
+
+
+
+
 
 startApp :: IO ()
 startApp = do
@@ -66,6 +78,8 @@ api = Proxy
 
 server :: Server API
 server = return usersCollection 
+	:<|> return ryan
+	:<|> return neill
 
 	-- echoMessage
 
