@@ -1,3 +1,0 @@
-this is a haskell test for taking
-in a A f239423 djjdf
-woo hoo
