@@ -36,12 +36,16 @@ data User = User
 	{ name :: String
 	, age :: Int 
 	, email :: String
-	} deriving (Eq, Show, Generic)
+	} deriving (Eq, Show, Generic, Read)
 
-instance ToJSON User
-instance FromJSON User
-instance FromJSON Message
-instance ToJSON Message
+
+$(deriveJSON defaultOptions ''User)
+
+
+-- instance ToJSON User
+-- instance FromJSON User
+-- instance FromJSON Message
+-- instance ToJSON Message
 
 
 type API = "users" :> Get '[JSON] [User]
@@ -60,9 +64,6 @@ ryan = User "Ryan Kane" 21 "ryan@kane.ie"
 
 neill :: User
 neill = User "Neill Diamond" 68 "neill@diamond.ie"
-
-
-
 
 
 startApp :: IO ()
@@ -88,16 +89,16 @@ server = return usersCollection
 -- 	sendEcho :: String -> Handler Message
 --  	sendEcho s = return (Message (map toUpper s))
 
-
+-- This function will be called by all further
+-- functions accessing the DB.
+-- Creates conncetion to fileDB
 runMongo functionToRun = do
 	pipe <-  connect (host "127.0.0.1")
 	e <- access pipe master "fileDB" functionToRun
 	print e
 	close pipe
 
-
-
-
+showCollections = runMongo allCollections
 
 
 
