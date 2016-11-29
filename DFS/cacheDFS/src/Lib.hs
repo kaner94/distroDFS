@@ -32,12 +32,26 @@ data Message = Message
  	deriving (Generic)
 
 
+data User = User 
+	{ name :: String
+	, age :: Int 
+	, email :: String
+	} deriving (Eq, Show, Generic)
+
+instance ToJSON User
+instance FromJSON User
 instance FromJSON Message
 instance ToJSON Message
 
 
-type API = "message" :> Capture "in" String :> Get '[JSON] Message 
+type API = "users" :> Get '[JSON] [User]
 		 
+
+usersCollection :: [User]
+usersCollection =
+	[ User "Ryan Kane" 21 "ryan@kane.ie"
+	, User "Neill Diamond" 68 "neill@diamond.hi"
+	]
 
 startApp :: IO ()
 startApp = do
@@ -51,12 +65,14 @@ api :: Proxy API
 api = Proxy
 
 server :: Server API
-server = echoMessage
+server = return usersCollection 
 
-echoMessage :: Server API
-echoMessage = sendEcho where
-	sendEcho :: String -> Handler Message
- 	sendEcho s = return (Message (map toUpper s))
+	-- echoMessage
+
+-- echoMessage :: Server API
+-- echoMessage = sendEcho where
+-- 	sendEcho :: String -> Handler Message
+--  	sendEcho s = return (Message (map toUpper s))
 
 
 runMongo functionToRun = do
