@@ -12,7 +12,6 @@ module Lib
 import Data.Aeson
 import Data.Aeson.TH
 import Data.Char
-import Data.List
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
@@ -20,7 +19,7 @@ import GHC.Generics
 import System.IO
 import Control.Monad.Trans (liftIO)
 import Database.MongoDB 				(Action, Document, Value,
-                                        access, allCollections, close, connect, delete,
+                                        access, allCollections, allDatabases, close, connect, delete,
                                         exclude, find, insert, findOne, host, insertMany,
                                         master, project, rest, select, sort,
                                         (=:))
@@ -99,6 +98,8 @@ runMongo functionToRun = do
 	close pipe
 
 showCollections = runMongo allCollections
+
+showFiles = runMongo $ find (select [] "files") >>= rest
 
 
 
