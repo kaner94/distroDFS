@@ -10,6 +10,7 @@ import Data.Aeson.TH
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
+import Database.MongoDB
 
 data User = User
   { userId        :: Int
@@ -24,6 +25,8 @@ data Token = Token
 
 
 $(deriveJSON defaultOptions ''User)
+$(deriveJSON defaultOptions ''Token)
+
 
 type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
