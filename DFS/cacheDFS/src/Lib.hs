@@ -26,10 +26,19 @@ import Database.MongoDB 				(Action, Document, Value,
 
 
 
-data Message = Message
- 	{ message :: String }
+data InFile = InFile
+ 	{ fileContents :: String }
  	deriving (Generic)
 
+instance FromJSON InFile
+instance ToJSON InFile 
+
+data ResponseData = ResponseData
+	{ response :: String }
+	deriving (Generic)
+
+instance FromJSON ResponseData
+instance ToJSON ResponseData
 
 data User = User 
 	{ name :: String
@@ -50,6 +59,7 @@ $(deriveJSON defaultOptions ''User)
 type API = "users" :> Get '[JSON] [User]
 		:<|> "ryan" :> Get '[JSON] User
 		:<|> "neill" :> Get '[JSON] User
+		:<|> "postFile" :> ReqBody '[JSON] InFile :> Post '[JSON] ResponseData
 		 
 
 usersCollection :: [User]
@@ -80,6 +90,7 @@ server :: Server API
 server = return usersCollection 
 	:<|> return ryan
 	:<|> return neill
+	:<|> postFile
 
 	-- echoMessage
 
@@ -101,12 +112,15 @@ showCollections = runMongo allCollections
 
 showFiles = runMongo $ find (select [] "files") >>= rest
 
+postFile :: InFile -> Handler ResponseData
+postFile inFile = return (ResponseData (file inFile))
 
-postFile :: IO()
-postFile = do
-	handle <- openFile "text.txt" ReadMode
-	contents <- hGetContents handle
-	liftIO $ runMongo $ insert "files" contents
+
+-- postFile :: IO()
+-- postFile = do
+-- 	handle <- openFile "text.txt" ReadMode
+-- 	contents <- hGetContents handle
+-- 	liftIO $ runMongo $ insert "files" contents
 
 
 	-- withFile "text.txt" ReadMode (\handle -> do

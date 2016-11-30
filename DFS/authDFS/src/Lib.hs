@@ -10,7 +10,11 @@ import Data.Aeson.TH
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
-import Database.MongoDB
+import Database.MongoDB                 (Action, Document, Value,
+                                        access, allCollections, allDatabases, close, connect, delete,
+                                        exclude, find, insert, findOne, host, insertMany,
+                                        master, project, rest, select, sort,
+                                        (=:))
 
 data User = User
   { userId        :: Int
@@ -51,3 +55,8 @@ users = [ User 1 "Isaac" "Newton"
 
 token1 :: Token
 token1 = Token "THIS_IS_META_DATA" "1332kglnz09"
+
+runMongo functionToRun = do
+  pipe <- connect (host "127.0.0.1")
+  e <- access pipe maste "fileDB" functionToRun
+  close pipe
