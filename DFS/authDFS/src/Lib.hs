@@ -24,9 +24,12 @@ data User = User
 
 data Token = Token
 	{   metaData :: String
-	,	key1 :: String
+	,	  key1 :: Key
 	}
 
+data Key = Key
+  { keyString :: String }
+  deriving (Eq, Show)
 
 $(deriveJSON defaultOptions ''User)
 $(deriveJSON defaultOptions ''Token)
