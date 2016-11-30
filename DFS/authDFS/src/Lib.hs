@@ -17,9 +17,16 @@ data User = User
   , userLastName  :: String
   } deriving (Eq, Show)
 
+data Token = Token
+	{   metaData :: String
+	,	key1 :: String
+	}
+
+
 $(deriveJSON defaultOptions ''User)
 
 type API = "users" :> Get '[JSON] [User]
+		:<|> "token1" :> Get '[JSON] Token
 
 startApp :: IO ()
 startApp = run 8080 app
@@ -32,8 +39,12 @@ api = Proxy
 
 server :: Server API
 server = return users
+	:<|> return token1
 
 users :: [User]
 users = [ User 1 "Isaac" "Newton"
         , User 2 "Albert" "Einstein"
         ]
+
+token1 :: Token
+token1 = Token "THIS_IS_META_DATA" "1332kglnz09"

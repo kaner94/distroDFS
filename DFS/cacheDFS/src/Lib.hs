@@ -102,6 +102,16 @@ showCollections = runMongo allCollections
 showFiles = runMongo $ find (select [] "files") >>= rest
 
 
+postFile :: IO()
+postFile = do
+	handle <- openFile "text.txt" ReadMode
+	contents <- hGetContents handle
+	liftIO $ runMongo $ insert "files" contents
+
+
+	-- withFile "text.txt" ReadMode (\handle -> do
+	-- 	contents <- hGetContents handle
+	-- 	runMongo $ insert "files" contents)
 
 
 
