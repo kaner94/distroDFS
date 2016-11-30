@@ -59,4 +59,5 @@ token1 = Token "THIS_IS_META_DATA" "1332kglnz09"
 runMongo functionToRun = do
   pipe <- connect (host "127.0.0.1")
   e <- access pipe maste "fileDB" functionToRun
+  print e
   close pipe
