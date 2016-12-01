@@ -33,7 +33,7 @@ data Key = Key
 
 $(deriveJSON defaultOptions ''User)
 $(deriveJSON defaultOptions ''Token)
-
+$(deriveJSON defaultOptions ''Key)
 
 type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
@@ -56,11 +56,14 @@ users = [ User 1 "Isaac" "Newton"
         , User 2 "Albert" "Einstein"
         ]
 
-token1 :: Token
-token1 = Token "THIS_IS_META_DATA" "1332kglnz09"
+keys :: Key
+keys = Key "encryptedKey_SOGOOD_SO_FINE"
 
-runMongo functionToRun = do
-  pipe <- connect (host "127.0.0.1")
-  e <- access pipe maste "fileDB" functionToRun
-  print e
-  close pipe
+token1 :: Token
+token1 = Token "THIS_IS_META_DATA" keys
+
+-- runMongo functionToRun = do
+--   pipe <- connect (host "127.0.0.1")
+--   e <- access pipe maste "fileDB" functionToRun
+--   print e
+--   close pipe

@@ -91,7 +91,6 @@ server = return usersCollection
 	:<|> return ryan
 	:<|> return neill
 	:<|> postFile
-
 	-- echoMessage
 
 -- echoMessage :: Server API
@@ -113,7 +112,7 @@ showCollections = runMongo allCollections
 showFiles = runMongo $ find (select [] "files") >>= rest
 
 postFile :: InFile -> Handler ResponseData
-postFile inFile = return (ResponseData (file inFile))
+postFile inFile = return (ResponseData (fileContents inFile))
 
 
 -- postFile :: IO()
