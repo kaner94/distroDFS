@@ -4,6 +4,7 @@
 {-# LANGUAGE DeriveGeneric        #-}
 {-# LANGUAGE OverloadedStrings    #-}
 {-# LANGUAGE ExtendedDefaultRules #-}
+{-# LANGUAGE DeriveAnyClass       #-}
 
 module Lib
     ( startApp
@@ -12,6 +13,7 @@ module Lib
 import Data.Aeson
 import Data.Aeson.TH
 import Data.Char
+import Data.Bson.Generic
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant

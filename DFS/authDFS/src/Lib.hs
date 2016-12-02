@@ -38,6 +38,11 @@ $(deriveJSON defaultOptions ''Key)
 type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
 
+
+encrypt :: String -> String
+encrypt inString = do
+  
+
 startApp :: IO ()
 startApp = run 8080 app
 
