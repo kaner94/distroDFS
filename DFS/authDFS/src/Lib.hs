@@ -41,7 +41,7 @@ type API = "users" :> Get '[JSON] [User]
 
 encrypt :: String -> String
 encrypt inString = do
-  
+  let zipWith = [a..Z]
 
 startApp :: IO ()
 startApp = run 8080 app
