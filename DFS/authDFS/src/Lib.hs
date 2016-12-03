@@ -12,6 +12,7 @@ import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
 import System.IO
+import System.Random
 import GHC.Generics
 import Control.Monad.Trans (liftIO)
 import Database.MongoDB                 (Action, Document, Value,
@@ -44,45 +45,26 @@ type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
 
 main = do
-  let s = "this is a string" 
-  let x =  map ord s
-  print (s)
-  print (x)
-  let z = map (+4) x
-  print (z)
-  let y = map chr z
-  print (y)
-  let a = map ord y
-  let b = map (+(-4)) a 
-  print (b)
-  let c = map chr b
-  print (c)
-  
   handle <- openFile "text.txt" ReadMode
   inFile <- hGetContents handle
-  putStrLn inFile
+  
+  let x = encrypt inFile
+  print(x)
 
-  let textToInt = map ord inFile
-  let textEncrypted = map (+4) textToInt
-  print textEncrypted
+  -- let testingEncrypt = encrypt inFile
+  -- print(testingEncrypt)
 
-  let encryptedToInt = map (+(-4)) textEncrypted
-  let decrypted = map chr encryptedToInt
-
-  putStrLn decrypted
-
-
-
--- encrypt :: IO ()
--- encrypt inString = do
---   --let cipherString = [a..z]
---   --let s = s = (inString (map toUpper s)
---   print (ord inString)
+encrypt :: String -> [String]
+encrypt inString = do
+  let intString = map ord inString
+  let mappedIntString = map (+5) intString -- Currently set to +5 testing purposes!
+  let encString = map chr mappedIntString
+  return encString
 
 
 
-
-
+getKey :: IO Int
+getKey = randomRIO(1,25)
 
 startApp :: IO ()
 startApp = run 8080 app
