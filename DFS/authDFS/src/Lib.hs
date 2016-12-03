@@ -7,6 +7,7 @@ module Lib
 
 import Data.Aeson
 import Data.Aeson.TH
+import Data.Char -- This will be used to encrypt strings 😁
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
@@ -26,10 +27,11 @@ data Token = Token
 	{   metaData :: String
 	,	  key1 :: Key
 	}
+  deriving (Show, Read)
 
 data Key = Key
-  { keyString :: String }
-  deriving (Eq, Show)
+  { keyString :: Int }
+  deriving (Eq, Show, Read)
 
 $(deriveJSON defaultOptions ''User)
 $(deriveJSON defaultOptions ''Token)
@@ -38,10 +40,25 @@ $(deriveJSON defaultOptions ''Key)
 type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
 
+main = do
+  let s = "this is a string" 
+  let x =  map ord s
+  print (s)
+  print (x)
+  
 
-encrypt :: String -> String
-encrypt inString = do
-  let zipWith = [a..Z]
+
+
+-- encrypt :: IO ()
+-- encrypt inString = do
+--   --let cipherString = [a..z]
+--   --let s = s = (inString (map toUpper s)
+--   print (ord inString)
+
+
+
+
+
 
 startApp :: IO ()
 startApp = run 8080 app
@@ -62,7 +79,7 @@ users = [ User 1 "Isaac" "Newton"
         ]
 
 keys :: Key
-keys = Key "encryptedKey_SOGOOD_SO_FINE"
+keys = Key 4
 
 token1 :: Token
 token1 = Token "THIS_IS_META_DATA" keys
