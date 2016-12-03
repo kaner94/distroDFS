@@ -24,6 +24,7 @@ library
                      , mongoDB
                      , mtl
                      , random
+                     , base
   default-language:    Haskell2010
 
 executable authDFS-exe

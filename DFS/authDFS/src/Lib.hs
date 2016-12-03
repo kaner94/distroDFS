@@ -8,6 +8,7 @@ module Lib
 import Data.Aeson
 import Data.Aeson.TH
 import Data.Char -- This will be used to encrypt strings 😁
+import Data.String
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
@@ -50,6 +51,10 @@ main = do
   keyTest <- getKey
   let x = encrypt inFile keyTest
   print(x)
+  let test = unwords x
+  print(test)
+  let y = decrypt test keyTest
+  print(y)
 
   -- let testingEncrypt = encrypt inFile
   -- print(testingEncrypt)
@@ -60,6 +65,13 @@ encrypt inString keyNum = do
   let mappedIntString = map (+keyNum) intString -- Currently set to +5 testing purposes!
   let encString = map chr mappedIntString
   return encString
+
+decrypt:: String -> Int -> [String]
+decrypt inString keyNum = do
+  let intString = map ord inString
+  let mappedIntString = map (+(-keyNum)) intString
+  let decString = map chr mappedIntString
+  return decString
 
 
 
