@@ -11,6 +11,9 @@ import Data.Char -- This will be used to encrypt strings 😁
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
+import System.IO
+import GHC.Generics
+import Control.Monad.Trans (liftIO)
 import Database.MongoDB                 (Action, Document, Value,
                                         access, allCollections, allDatabases, close, connect, delete,
                                         exclude, find, insert, findOne, host, insertMany,
@@ -54,6 +57,19 @@ main = do
   print (b)
   let c = map chr b
   print (c)
+  
+  handle <- openFile "text.txt" ReadMode
+  inFile <- hGetContents handle
+  putStrLn inFile
+
+  let textToInt = map ord inFile
+  let textEncrypted = map (+4) textToInt
+  print textEncrypted
+
+  let encryptedToInt = map (+(-4)) textEncrypted
+  let decrypted = map chr encryptedToInt
+
+  putStrLn decrypted
 
 
 

@@ -1,0 +1,3 @@
+this is our string that we hope will be encoded, and decoded
+major tesTING going on here 69696 
+up the DUbS
