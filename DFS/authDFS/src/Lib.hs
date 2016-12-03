@@ -47,17 +47,17 @@ type API = "users" :> Get '[JSON] [User]
 main = do
   handle <- openFile "text.txt" ReadMode
   inFile <- hGetContents handle
-  
-  let x = encrypt inFile
+  keyTest <- getKey
+  let x = encrypt inFile keyTest
   print(x)
 
   -- let testingEncrypt = encrypt inFile
   -- print(testingEncrypt)
 
-encrypt :: String -> [String]
-encrypt inString = do
+encrypt :: String -> Int -> [String]
+encrypt inString keyNum = do
   let intString = map ord inString
-  let mappedIntString = map (+5) intString -- Currently set to +5 testing purposes!
+  let mappedIntString = map (+keyNum) intString -- Currently set to +5 testing purposes!
   let encString = map chr mappedIntString
   return encString
 
