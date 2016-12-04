@@ -5,6 +5,9 @@
 {-# LANGUAGE OverloadedStrings    #-}
 {-# LANGUAGE ExtendedDefaultRules #-}
 {-# LANGUAGE DeriveAnyClass       #-}
+{-# LANGUAGE StandaloneDeriving   #-}
+{-# LANGUAGE FlexibleInstances    #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 
 module Lib
     ( startApp
@@ -30,10 +33,11 @@ import Database.MongoDB 				(Action, Document, Value,
 
 data InFile = InFile
  	{ fileContents :: String }
- 	deriving (Generic)
+ 	deriving (Generic, FromBSON, ToBSON, FromJSON, ToJSON)
 
-instance FromJSON InFile
-instance ToJSON InFile 
+
+deriving instance FromBSON String
+deriving instance ToBSON String 
 
 data ResponseData = ResponseData
 	{ response :: String }
@@ -113,8 +117,13 @@ showCollections = runMongo allCollections
 
 showFiles = runMongo $ find (select [] "files") >>= rest
 
+insertFile :: Document -> IO ()
+insertFile toInsert = runMongo $ insert "files" toInsert
+
 postFile :: InFile -> Handler ResponseData
-postFile inFile = return (ResponseData (fileContents inFile))
+postFile inFile = liftIO $ do
+	e <- insertFile $ ( toBSON $ fileContents inFile)
+	return $ ResponseData (fileContents inFile)
 
 
 -- postFile :: IO()
