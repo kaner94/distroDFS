@@ -122,7 +122,7 @@ insertFile toInsert = runMongo $ insert "files" toInsert
 
 postFile :: InFile -> Handler ResponseData
 postFile inFile = liftIO $ do
-	e <- insertFile $ ( toBSON $ fileContents inFile)
+	e <- insertFile $ ( toBSON $ inFile)
 	return $ ResponseData (fileContents inFile)
 
 
