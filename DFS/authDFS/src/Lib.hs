@@ -53,6 +53,10 @@ data User = User
   , userLastName  :: String
   } deriving (Eq, Show)
 
+data TestUser = TestUser
+  { name :: String
+  } deriving(Eq, Show, Read, ToJSON, FromJSON, ToBSON, FromBSON)
+
 data Token = Token
 	{   metaData :: String
 	,	  key1 :: Key
@@ -70,6 +74,7 @@ $(deriveJSON defaultOptions ''Key)
 type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
     :<|> "postFile" :> ReqBody '[JSON] InFile :> Post '[JSON] ResponseData
+    :<|> "addUser" :> ReqBody '[JSON] TestUser :> Post '[JSON] ResponseData
 
 main = do
   handle <- openFile "text.txt" ReadMode
@@ -127,17 +132,18 @@ server :: Server API
 server = return users
 	:<|> return token1
   :<|> postFile
+  :<|> addUser
 
 users :: [User]
 users = [ User 1 "Isaac" "Newton"
         , User 2 "Albert" "Einstein"
         ]
 
-keys :: Key
-keys = Key 4
+localKey :: Key
+localKey = Key 4
 
 token1 :: Token
-token1 = Token "THIS_IS_META_DATA" keys
+token1 = Token "THIS_IS_META_DATA" localKey
 
 runMongo functionToRun = do
   pipe <-  connect (host "127.0.0.1")
@@ -149,18 +155,19 @@ showCollections = runMongo allCollections
 
 showFiles = runMongo $ find (select [] "files") >>= rest
 
+showUsers = runMongo $ find (select [] "users") >>= rest
+
 insertFile :: Document -> IO ()
 insertFile toInsert = runMongo $ insert "files" toInsert
 
 postFile :: InFile -> Handler ResponseData
 postFile inFile = liftIO $ do
-  inKey <- getKey
-  let encKey = Key inKey
   let x = fileContents inFile
-  let toPost = encrypt x inKey
+  let toPost = encrypt x (keyString localKey)
   print (inFile)
   print(toPost)
   let encFile = InFile toPost
+  print(encFile)
   e <- insertFile $ ( toBSON $ encFile)
   return $ ResponseData (fileContents encFile)
 
