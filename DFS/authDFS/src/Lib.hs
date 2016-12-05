@@ -49,11 +49,23 @@ main = do
   handle <- openFile "text.txt" ReadMode
   inFile <- hGetContents handle
   keyTest <- getKey
+  print ("This is keyTest ")
+  print (keyTest)
+
+  let inttt = keyTest
+  print ("\n\nThis is Inttt: ")
+  print (inttt)
+
+  let test = Key inttt
+  print("\n\nThis is the key: ")
+  print (test)
+
   let x = encrypt inFile keyTest
   print(x)
 
   let y = decrypt x keyTest
-  print(y)
+  putStrLn(y)
+
 
   -- let testingEncrypt = encrypt inFile
   -- print(testingEncrypt)
@@ -71,7 +83,6 @@ decrypt inString keyNum = do
   let mappedIntString = map (+(-keyNum)) intString
   let decString = map chr mappedIntString
   return decString!!0 -- This is necessary as map returns a [String], we just want the first element!
-
 
 
 getKey :: IO Int
