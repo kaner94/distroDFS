@@ -35,7 +35,6 @@ data InFile = InFile
  	{ fileContents :: String }
  	deriving (Generic, FromBSON, ToBSON, FromJSON, ToJSON)
 
-
 deriving instance FromBSON String
 deriving instance ToBSON String 
 
@@ -126,6 +125,7 @@ postFile inFile = liftIO $ do
 	return $ ResponseData (fileContents inFile)
 
 
+
 -- postFile :: IO()
 -- postFile = do
 -- 	handle <- openFile "text.txt" ReadMode
@@ -136,41 +136,6 @@ postFile inFile = liftIO $ do
 	-- withFile "text.txt" ReadMode (\handle -> do
 	-- 	contents <- hGetContents handle
 	-- 	runMongo $ insert "files" contents)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
