@@ -55,6 +55,7 @@ data User = User
 
 data TestUser = TestUser
   { name :: String
+  , password :: String
   } deriving(Eq, Show, Read, ToJSON, FromJSON, ToBSON, FromBSON)
 
 data Token = Token
@@ -170,6 +171,17 @@ postFile inFile = liftIO $ do
   print(encFile)
   e <- insertFile $ ( toBSON $ encFile)
   return $ ResponseData (fileContents encFile)
+
+addUser :: TestUser -> Handler ResponseData
+addUser inUser = liftIO $ do
+  let x = name inUser
+  let y = password inUser
+  let encY = encrypt y (keyString localKey)
+  print(y)
+  print(encY)
+  let toPost = TestUser x encY
+  e <- insertFile $ ( toBSON $ toPost)
+  return $ ResponseData (name password toPost)
 
 -- runMongo functionToRun = do
 --   pipe <- connect (host "127.0.0.1")
