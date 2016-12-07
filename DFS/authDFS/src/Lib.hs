@@ -56,7 +56,7 @@ data User = User
 data TestUser = TestUser
   { name :: String
   , password :: String
-  } deriving(Eq, Show, Read, ToJSON, FromJSON, ToBSON, FromBSON)
+  } deriving(Generic, Eq, Show, Read, FromBSON, ToBSON)
 
 data Token = Token
 	{   metaData :: String
@@ -71,6 +71,8 @@ data Key = Key
 $(deriveJSON defaultOptions ''User)
 $(deriveJSON defaultOptions ''Token)
 $(deriveJSON defaultOptions ''Key)
+$(deriveJSON defaultOptions ''TestUser)
+
 
 type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
@@ -181,7 +183,7 @@ addUser inUser = liftIO $ do
   print(encY)
   let toPost = TestUser x encY
   e <- insertFile $ ( toBSON $ toPost)
-  return $ ResponseData (name password toPost)
+  return $ ResponseData (password toPost)
 
 -- runMongo functionToRun = do
 --   pipe <- connect (host "127.0.0.1")
