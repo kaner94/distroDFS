@@ -78,6 +78,8 @@ type API = "users" :> Get '[JSON] [User]
 		:<|> "token1" :> Get '[JSON] Token
     :<|> "postFile" :> ReqBody '[JSON] InFile :> Post '[JSON] ResponseData
     :<|> "addUser" :> ReqBody '[JSON] TestUser :> Post '[JSON] ResponseData
+    :<|> "getToken" :> ReqBody '[JSON] TestUser :> Post '[JSON] ResponseData
+
 
 main = do
   handle <- openFile "text.txt" ReadMode
@@ -136,6 +138,7 @@ server = return users
 	:<|> return token1
   :<|> postFile
   :<|> addUser
+  :<|> getToken
 
 users :: [User]
 users = [ User 1 "Isaac" "Newton"
@@ -166,6 +169,20 @@ insertFile toInsert = runMongo $ insert "files" toInsert
 insertUser :: Document -> IO ()
 insertUser toInsert = runMongo $ insert "users" toInsert
 
+
+getToken :: TestUser -> Handler ResponseData
+getToken inUser = liftIO $ do
+  let findName = name inUser
+  print findName
+  let pass = password inUser
+  print pass
+  let encPass = encrypt pass (keyString localKey)
+
+  user <- runMongo $ findOne $ select ["name" =: findName, "password" =: encPass] "users"
+  print(user)
+  
+  return $ ResponseData (metaData token1)
+
 postFile :: InFile -> Handler ResponseData
 postFile inFile = liftIO $ do
   let x = fileContents inFile
@@ -187,6 +204,9 @@ addUser inUser = liftIO $ do
   let toPost = TestUser x encY
   e <- insertUser $ ( toBSON $ toPost)
   return $ ResponseData (name toPost)
+
+-- Gonna need a function that'll take in a passowrd/username and ensure
+-- its correct, and then give that person a token :woo:
 
 -- runMongo functionToRun = do
 --   pipe <- connect (host "127.0.0.1")
