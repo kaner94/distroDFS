@@ -163,6 +163,9 @@ showUsers = runMongo $ find (select [] "users") >>= rest
 insertFile :: Document -> IO ()
 insertFile toInsert = runMongo $ insert "files" toInsert
 
+insertUser :: Document -> IO ()
+insertUser toInsert = runMongo $ insert "users" toInsert
+
 postFile :: InFile -> Handler ResponseData
 postFile inFile = liftIO $ do
   let x = fileContents inFile
@@ -182,8 +185,8 @@ addUser inUser = liftIO $ do
   print(y)
   print(encY)
   let toPost = TestUser x encY
-  e <- insertFile $ ( toBSON $ toPost)
-  return $ ResponseData (password toPost)
+  e <- insertUser $ ( toBSON $ toPost)
+  return $ ResponseData (name toPost)
 
 -- runMongo functionToRun = do
 --   pipe <- connect (host "127.0.0.1")
