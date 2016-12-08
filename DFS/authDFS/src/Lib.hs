@@ -173,14 +173,9 @@ insertUser toInsert = runMongo $ insert "users" toInsert
 getToken :: TestUser -> Handler ResponseData
 getToken inUser = liftIO $ do
   let findName = name inUser
-  print findName
   let pass = password inUser
-  print pass
   let encPass = encrypt pass (keyString localKey)
-
   user <- runMongo $ findOne $ select ["name" =: findName, "password" =: encPass] "users"
-  print(user)
-  
   return $ ResponseData (metaData token1)
 
 postFile :: InFile -> Handler ResponseData
