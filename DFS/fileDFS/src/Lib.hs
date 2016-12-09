@@ -62,6 +62,7 @@ data Key = Key
 $(deriveJSON defaultOptions ''Key)
 
 type API = "postFile" :> ReqBody '[JSON] InFile :> Post '[JSON] ResponseData
+	:<|> "insertFile" :> ReqBody
 
 
 startApp :: IO ()
