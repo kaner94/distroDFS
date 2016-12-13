@@ -62,7 +62,7 @@ data Key = Key
 $(deriveJSON defaultOptions ''Key)
 
 type API = "postFile" :> ReqBody '[JSON] InFile :> Post '[JSON] ResponseData
-	:<|> "insertFile" :> ReqBody
+
 
 
 startApp :: IO ()
@@ -83,7 +83,7 @@ localKey = Key 4
 encrypt :: String -> Int -> String
 encrypt inString keyNum = do
   let intString = map ord inString
-  let mappedIntString = map (+keyNum) intString -- Currently set to +5 testing purposes!
+  let mappedIntString = map (+keyNum) intString -- Currently set to +4 testing purposes!
   let encString = map chr mappedIntString
   return encString!!0 -- This is necessary as map returns a [String], we just want the first element!
 

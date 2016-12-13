@@ -1,0 +1,1 @@
+curl -X POST -d '{"name": "RyanDemo", "password": "qrstu"}' -H 'Accept: application/json' -H 'Content-type: application/json' http://localhost:8080/addUser

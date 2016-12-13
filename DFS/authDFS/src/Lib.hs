@@ -181,13 +181,9 @@ getToken inUser = liftIO $ do
 postFile :: InFile -> Handler ResponseData
 postFile inFile = liftIO $ do
   let x = fileContents inFile
-  let toPost = encrypt x (keyString localKey)
   print (inFile)
-  print(toPost)
-  let encFile = InFile toPost
-  print(encFile)
-  e <- insertFile $ ( toBSON $ encFile)
-  return $ ResponseData (fileContents encFile)
+  e <- insertFile $ ( toBSON $ inFile)
+  return $ ResponseData (fileContents inFile)
 
 addUser :: TestUser -> Handler ResponseData
 addUser inUser = liftIO $ do
