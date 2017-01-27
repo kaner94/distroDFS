@@ -169,7 +169,6 @@ insertFile toInsert = runMongo $ insert "files" toInsert
 insertUser :: Document -> IO ()
 insertUser toInsert = runMongo $ insert "users" toInsert
 
-
 getToken :: TestUser -> Handler ResponseData
 getToken inUser = liftIO $ do
   let findName = name inUser
