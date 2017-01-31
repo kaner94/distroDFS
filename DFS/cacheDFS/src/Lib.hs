@@ -61,10 +61,7 @@ $(deriveJSON defaultOptions ''User)
 -- instance ToJSON Message
 
 
-type API = "users" :> Get '[JSON] [User]
-		:<|> "ryan" :> Get '[JSON] User
-		:<|> "neill" :> Get '[JSON] User
-		:<|> "postFile" :> ReqBody '[JSON] InFile :> Post '[JSON] ResponseData
+type API = "postFile" :> ReqBody '[JSON] InFile :> Post '[JSON] ResponseData
 		 
 
 usersCollection :: [User]
@@ -92,10 +89,7 @@ api :: Proxy API
 api = Proxy
 
 server :: Server API
-server = return usersCollection 
-	:<|> return ryan
-	:<|> return neill
-	:<|> postFile
+server =  postFile
 	-- echoMessage
 
 -- echoMessage :: Server API
@@ -119,23 +113,22 @@ showFiles = runMongo $ find (select [] "files") >>= rest
 insertFile :: Document -> IO ()
 insertFile toInsert = runMongo $ insert "files" toInsert
 
-postFile :: InFile -> Handler ResponseData
-postFile inFile = liftIO $ do
-	e <- insertFile $ ( toBSON $ inFile)
-	return $ ResponseData (fileContents inFile)
+-- postFile :: InFile -> Handler ResponseData
+-- postFile inFile = liftIO $ do
+-- 	e <- insertFile $ ( toBSON $ inFile)
+-- 	return $ ResponseData (fileContents inFile)
 
 
 
--- postFile :: IO()
--- postFile = do
--- 	handle <- openFile "text.txt" ReadMode
--- 	contents <- hGetContents handle
--- 	liftIO $ runMongo $ insert "files" contents
+postFile :: IO()
+postFile = do
+	handle <- openFile "text.txt" ReadMode
+	contents <- hGetContents handle
+	liftIO $ runMongo $ insert "files" contents
 
-
-	-- withFile "text.txt" ReadMode (\handle -> do
-	-- 	contents <- hGetContents handle
-	-- 	runMongo $ insert "files" contents)
+	withFile "text.txt" ReadMode (\handle -> do
+		contents <- hGetContents handle
+		runMongo $ insert "files" contents)
 
 
 
